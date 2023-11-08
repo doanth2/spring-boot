@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ProductDTO {
-    @NotBlank(message = "Title is required")
     @Size(min = 3, max = 200, message = "Name must be between 3 and 200 characters")
+    @NotEmpty(message = "Product's name cannot be empty")
     private String name;
 
     @Min(value = 0, message = "Price must be greater than or equal to 0")

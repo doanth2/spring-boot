@@ -23,15 +23,15 @@ import java.util.List;
 //@Validated
 //Dependency Injection
 public class CategoryController {
+
     @Autowired
     private  CategoryService categoryService;
     @Autowired
     private  MessageSource messageSource;
     @Autowired
     private  LocalizationUtils localizationUtils;
-
     @PostMapping("/create")
-    public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryDTO categoryDTO) throws Exception {
+    public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryDTO categoryDTO)  {
         Category createdCategory = categoryService.createCategory(categoryDTO);
         return ResponseEntity.ok(createdCategory);
     }

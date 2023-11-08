@@ -20,7 +20,6 @@ public class Product extends BaseEntity{
     @Column(name = "name", nullable = false, length = 350)
     private String name;
 
-
     private int quantity;
 
     private Float price;

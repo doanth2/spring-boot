@@ -32,7 +32,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping("/products")
 
@@ -41,15 +40,20 @@ public class ProductController {
     private  ProductService productService;
     @Autowired
     private  LocalizationUtils localizationUtils;
-
     @GetMapping("/pdf")
     public void generatePDF(HttpServletResponse response) throws IOException {
+        //phản hồi HTTP là "application/pdf", định dạng thông tin cho file PDF sẽ được trả về.
         response.setContentType("application/pdf");
+        //HTTP được sử dụng để chỉ định cách xử lý tệp tin được trả về từ máy chủ.
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename = product"  + ".pdf";
+        // lấy lưu trữ list data
         List<Product> products = productService.getListProducts();
+        // tạo và định dạng dữ liệu PDF từ danh sách sản phẩm
         ProductExportPdf productExportPdf = new ProductExportPdf(products);
+        // đặt cấu hình để trình duyệt hiển thị hộp thoại tải về cho người dùng.
         response.setHeader(headerKey, headerValue);
+        //HTTP người dùng có thể tải về.
         productExportPdf.exportPdf(response);
     }
 
@@ -66,18 +70,8 @@ public class ProductController {
 
 // GET kiểu gì cũng đi qua việc thêm mới sản phẩm
     @PostMapping("/create")
-    public ResponseEntity<?> createProduct(
-            @Valid @RequestBody ProductDTO productDTO,
-          BindingResult result
-    ) {
+    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO productDTO) {
         try {
-            if(result.hasErrors()) {
-                List<String> errorMessages = result.getFieldErrors()
-                        .stream()
-                        .map(FieldError::getDefaultMessage)
-                        .toList();
-                return ResponseEntity.badRequest().body(errorMessages);
-            }
             Product newProduct = productService.createProduct(productDTO);
             return ResponseEntity.ok(newProduct);
         } catch (Exception e) {

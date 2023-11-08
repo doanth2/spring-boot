@@ -6,7 +6,7 @@ import com.project.shopapp.entities.Category;
 import java.util.List;
 
 public interface CategoryService {
-    Category createCategory(CategoryDTO category) throws Exception;
+    Category createCategory(CategoryDTO category) ;
     Category getCategoryById(long id);
     List<Category> getAllCategories();
     Category updateCategory(long categoryId, CategoryDTO category);

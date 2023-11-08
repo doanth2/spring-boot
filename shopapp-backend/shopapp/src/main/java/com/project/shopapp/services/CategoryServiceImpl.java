@@ -17,14 +17,11 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     @Override
     @Transactional
-    public Category createCategory( CategoryDTO categoryDTO) throws Exception {
+    public Category createCategory( CategoryDTO categoryDTO)  {
         Category newCategory = Category
                 .builder()
                 .name(categoryDTO.getName())
                 .build();
-        if(newCategory.getName().isEmpty()){
-            throw new Exception("Category's name cannot be empty");
-        }
         return categoryRepository.save(newCategory);
     }
 

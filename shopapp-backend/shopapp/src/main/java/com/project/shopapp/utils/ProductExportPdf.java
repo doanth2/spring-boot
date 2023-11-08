@@ -58,7 +58,7 @@ public class ProductExportPdf {
             Font fontHeader = FontFactory.getFont(FontFactory.TIMES_BOLD, 22);
             //Đối tượng Paragraph trong iText được sử dụng để chứa văn bản trong tài liệu PDF
             Paragraph para = new Paragraph("Product List", fontHeader);
-            // can chinh van phan o giua
+            // căn chỉnh phần giữa file pdf
             para.setAlignment(Element.ALIGN_CENTER);
             // Thêm nội dung sử dụng add function
             document.add(para);

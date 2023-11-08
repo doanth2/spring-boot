@@ -8,8 +8,6 @@ import com.project.shopapp.utils.MessageKeys;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -38,7 +36,7 @@ public class OrderController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    //GET http://localhost:8088/api/v1/orders/2
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getOrder(@Valid @PathVariable("id") Long orderId) {
         try {
@@ -54,7 +52,6 @@ public class OrderController {
     public ResponseEntity<?> updateOrder(
             @Valid @PathVariable long id,
             @Valid @RequestBody OrderDTO orderDTO) {
-
         try {
             Order order = orderService.updateOrder(id, orderDTO);
             return ResponseEntity.ok(order);
